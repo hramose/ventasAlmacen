@@ -60,3 +60,32 @@ https://bootsnipp.com/snippets/Kr5yV
 				});
 		});
 </script>
+
+<?php 
+
+	public function obtenIdImg($idProducto){
+			$c= new conectar();
+			$conexion=$c->conexion();
+
+			$sql="SELECT id_imagen 
+					from productos 
+					where id_producto='$idProducto'";
+			$result=mysqli_query($conexion,$sql);
+
+			return mysqli_fetch_row($result)[0];
+		}
+
+		public function obtenRutaImagen($idImg){
+			$c= new conectar();
+			$conexion=$c->conexion();
+
+			$sql="SELECT ruta 
+					from imagenes 
+					where id_imagen='$idImg'";
+
+			$result=mysqli_query($conexion,$sql);
+
+			return mysqli_fetch_row($result)[0];
+		}
+
+ ?>
