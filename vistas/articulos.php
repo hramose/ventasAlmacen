@@ -121,6 +121,28 @@ if(isset($_SESSION['usuario'])){
 
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#btnActualizaarticulo').click(function(){
+
+				datos=$('#frmArticulosU').serialize();
+				$.ajax({
+					type:"POST",
+					data:datos,
+					url:"../procesos/articulos/actualizaArticulos.php",
+					success:function(r){
+						if(r==1){
+							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+							alertify.success("Actualizado con exito :D");
+						}else{
+							alertify.error("Error al actualizar :(");
+						}
+					}
+				});
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
 			$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
 
 			$('#btnAgregaArticulo').click(function(){
