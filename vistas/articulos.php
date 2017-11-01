@@ -11,11 +11,11 @@ if(isset($_SESSION['usuario'])){
 		<title>articulos</title>
 		<?php require_once "menu.php"; ?>
 		<?php require_once "../clases/Conexion.php"; 
-				$c= new conectar();
-				$conexion=$c->conexion();
-				$sql="SELECT id_categoria,nombreCategoria
-						from categorias";
-				$result=mysqli_query($conexion,$sql);
+		$c= new conectar();
+		$conexion=$c->conexion();
+		$sql="SELECT id_categoria,nombreCategoria
+		from categorias";
+		$result=mysqli_query($conexion,$sql);
 		?>
 	</head>
 	<body>
@@ -27,9 +27,9 @@ if(isset($_SESSION['usuario'])){
 						<label>Categoria</label>
 						<select class="form-control input-sm" id="categoriaSelect" name="categoriaSelect">
 							<option value="A">Selecciona Categoria</option>
-						<?php while($ver=mysqli_fetch_row($result)): ?>
-							<option value="<?php echo $ver[0] ?>"><?php echo $ver[1]; ?></option>
-						<?php endwhile; ?>
+							<?php while($ver=mysqli_fetch_row($result)): ?>
+								<option value="<?php echo $ver[0] ?>"><?php echo $ver[1]; ?></option>
+							<?php endwhile; ?>
 						</select>
 						<label>Nombre</label>
 						<input type="text" class="form-control input-sm" id="nombre" name="nombre">
@@ -51,8 +51,73 @@ if(isset($_SESSION['usuario'])){
 			</div>
 		</div>
 
+		<!-- Button trigger modal -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="abremodalUpdateArticulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Actualiza Articulo</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmArticulosU" enctype="multipart/form-data">
+							<input type="text" id="idArticulo" hidden="" name="idArticulo">
+							<label>Categoria</label>
+							<select class="form-control input-sm" id="categoriaSelectU" name="categoriaSelectU">
+								<option value="A">Selecciona Categoria</option>
+								<?php 
+								$sql="SELECT id_categoria,nombreCategoria
+								from categorias";
+								$result=mysqli_query($conexion,$sql);
+								?>
+								<?php while($ver=mysqli_fetch_row($result)): ?>
+									<option value="<?php echo $ver[0] ?>"><?php echo $ver[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
+							<label>Nombre</label>
+							<input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
+							<label>Descripcion</label>
+							<input type="text" class="form-control input-sm" id="descripcionU" name="descripcionU">
+							<label>Cantidad</label>
+							<input type="text" class="form-control input-sm" id="cantidadU" name="cantidadU">
+							<label>Precio</label>
+							<input type="text" class="form-control input-sm" id="precioU" name="precioU">
+							
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="btnActualizaarticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</body>
 	</html>
+
+	<script type="text/javascript">
+		function agregaDatosArticulo(idarticulo){
+			$.ajax({
+				type:"POST",
+				data:"idart=" + idarticulo,
+				url:"../procesos/articulos/obtenDatosArticulo.php",
+				success:function(r){
+					
+					dato=jQuery.parseJSON(r);
+					$('#idArticulo').val(dato['id_producto']);
+					$('#categoriaSelectU').val(dato['id_categoria']);
+					$('#nombreU').val(dato['nombre']);
+					$('#descripcionU').val(dato['descripcion']);
+					$('#cantidadU').val(dato['cantidad']);
+					$('#precioU').val(dato['precio']);
+
+				}
+			});
+		}
+	</script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){

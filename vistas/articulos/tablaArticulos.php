@@ -8,7 +8,8 @@
 					art.cantidad,
 					art.precio,
 					img.ruta,
-					cat.nombreCategoria
+					cat.nombreCategoria,
+					art.id_producto
 		  from articulos as art 
 		  inner join imagenes as img
 		  on art.id_imagen=img.id_imagen
@@ -47,7 +48,7 @@
 		</td>
 		<td><?php echo $ver[5]; ?></td>
 		<td>
-			<span class="btn btn-warning btn-xs">
+			<span  data-toggle="modal" data-target="#abremodalUpdateArticulo" class="btn btn-warning btn-xs" onclick="agregaDatosArticulo('<?php echo $ver[6] ?>')">
 				<span class="glyphicon glyphicon-pencil"></span>
 			</span>
 		</td>
