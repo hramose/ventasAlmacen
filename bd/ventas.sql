@@ -28,7 +28,7 @@ create table imagenes(
 				fechaSubida date,
 				primary key(id_imagen)
 					);
-create table productos(
+create table articulos(
 				id_producto int auto_increment,
 				id_categoria int not null,
 				id_imagen int not null,
