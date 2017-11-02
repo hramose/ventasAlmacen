@@ -53,6 +53,31 @@
 
 			return mysqli_fetch_row($result)[0];
 		}
+
+		public function obtenDatosUsuario($idusuario){
+
+			$c=new conectar();
+			$conexion=$c->conexion();
+
+			$sql="SELECT id_usuario,
+							nombre,
+							apellido,
+							email
+					from usuarios 
+					where id_usuario='$idusuario'";
+			$result=mysqli_query($conexion,$sql);
+
+			$ver=mysqli_fetch_row($result);
+
+			$datos=array(
+						'id_usuario' => $ver[0],
+							'nombre' => $ver[1],
+							'apellido' => $ver[2],
+							'email' => $ver[3]
+						);
+
+			return $datos;
+		}
 	}
 
  ?>
