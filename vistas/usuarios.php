@@ -86,6 +86,27 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 			});
 		}
 
+		function eliminarUsuario(idusuario){
+			alertify.confirm('¿Desea eliminar este usuario?', function(){ 
+				$.ajax({
+					type:"POST",
+					data:"idusuario=" + idusuario,
+					url:"../procesos/usuarios/eliminarUsuario.php",
+					success:function(r){
+						if(r==1){
+							$('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
+							alertify.success("Eliminado con exito!!");
+						}else{
+							alertify.error("No se pudo eliminar :(");
+						}
+					}
+				});
+			}, function(){ 
+				alertify.error('Cancelo !')
+			});
+		}
+
+
 	</script>
 
 	<script type="text/javascript">
@@ -98,7 +119,7 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 					data:datos,
 					url:"../procesos/usuarios/actualizaUsuario.php",
 					success:function(r){
-						
+
 						if(r==1){
 							$('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
 							alertify.success("Actualizado con exito :D");
