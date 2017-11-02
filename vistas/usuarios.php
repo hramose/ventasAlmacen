@@ -96,9 +96,15 @@ if(isset($_SESSION['usuario']) and $_SESSION['usuario']=='admin'){
 				$.ajax({
 					type:"POST",
 					data:datos,
-					url:"../procesos/",
+					url:"../procesos/usuarios/actualizaUsuario.php",
 					success:function(r){
-
+						
+						if(r==1){
+							$('#tablaUsuariosLoad').load('usuarios/tablaUsuarios.php');
+							alertify.success("Actualizado con exito :D");
+						}else{
+							alertify.error("No se pudo actualizar :(");
+						}
 					}
 				});
 			});

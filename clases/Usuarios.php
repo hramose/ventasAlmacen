@@ -78,6 +78,17 @@
 
 			return $datos;
 		}
+
+		public function actualizaUsuario($datos){
+			$c=new conectar();
+			$conexion=$c->conexion();
+
+			$sql="UPDATE usuarios set nombre='$datos[1]',
+									apellido='$datos[2]',
+									email='$datos[3]'
+						where id_usuario='$datos[0]'";
+			return mysqli_query($conexion,$sql);	
+		}
 	}
 
  ?>
