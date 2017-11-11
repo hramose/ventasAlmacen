@@ -42,38 +42,38 @@ if(isset($_SESSION['usuario'])){
 		<!-- Button trigger modal -->
 
 
-<!-- Modal -->
-<div class="modal fade" id="abremodalClientesUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Actualizar cliente</h4>
-      </div>
-      <div class="modal-body">
-        	<form id="frmClientesU">
-        		<input type="text" hidden="" id="idclienteU" name="idclienteU">
-						<label>Nombre</label>
-						<input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
-						<label>Apellido</label>
-						<input type="text" class="form-control input-sm" id="apellidosU" name="apellidosU">
-						<label>Direccion</label>
-						<input type="text" class="form-control input-sm" id="direccionU" name="direccionU">
-						<label>Email</label>
-						<input type="text" class="form-control input-sm" id="emailU" name="emailU">
-						<label>Telefono</label>
-						<input type="text" class="form-control input-sm" id="telefonoU" name="telefonoU">
-						<label>RFC</label>
-						<input type="text" class="form-control input-sm" id="rfcU" name="rfcU">
-					</form>
-      </div>
-      <div class="modal-footer">
-        <button id="btnAgregarClienteU" type="button" class="btn btn-primary" data-dismiss="modal">Actualizar</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
+		<!-- Modal -->
+		<div class="modal fade" id="abremodalClientesUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Actualizar cliente</h4>
+					</div>
+					<div class="modal-body">
+						<form id="frmClientesU">
+							<input type="text" hidden="" id="idclienteU" name="idclienteU">
+							<label>Nombre</label>
+							<input type="text" class="form-control input-sm" id="nombreU" name="nombreU">
+							<label>Apellido</label>
+							<input type="text" class="form-control input-sm" id="apellidosU" name="apellidosU">
+							<label>Direccion</label>
+							<input type="text" class="form-control input-sm" id="direccionU" name="direccionU">
+							<label>Email</label>
+							<input type="text" class="form-control input-sm" id="emailU" name="emailU">
+							<label>Telefono</label>
+							<input type="text" class="form-control input-sm" id="telefonoU" name="telefonoU">
+							<label>RFC</label>
+							<input type="text" class="form-control input-sm" id="rfcU" name="rfcU">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button id="btnAgregarClienteU" type="button" class="btn btn-primary" data-dismiss="modal">Actualizar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</body>
 	</html>
@@ -94,46 +94,70 @@ if(isset($_SESSION['usuario'])){
 					$('#emailU').val(dato['email']);
 					$('#telefonoU').val(dato['telefono']);
 					$('#rfcU').val(dato['rfc']);
-							 
+
 				}
 			});
 		}
 	</script>
 
 	<script type="text/javascript">
-	$(document).ready(function(){
+		$(document).ready(function(){
 
-		$('#tablaClientesLoad').load("clientes/tablaClientes.php");
+			$('#tablaClientesLoad').load("clientes/tablaClientes.php");
 
-		$('#btnAgregarCliente').click(function(){
+			$('#btnAgregarCliente').click(function(){
 
-			vacios=validarFormVacio('frmClientes');
+				vacios=validarFormVacio('frmClientes');
 
-			if(vacios > 0){
-				alertify.alert("Debes llenar todos los campos!!");
-				return false;
-			}
-
-		datos=$('#frmClientes').serialize();
-		
-		$.ajax({
-			type:"POST",
-			data:datos,
-			url:"../procesos/clientes/agregaCliente.php",
-			success:function(r){
-				
-				if(r==1){
-					$('#frmClientes')[0].reset();
-					$('#tablaClientesLoad').load("clientes/tablaClientes.php");
-					alertify.success("Categoria agregada con exito :D");
-				}else{
-					alertify.error("No se pudo agregar categoria");
+				if(vacios > 0){
+					alertify.alert("Debes llenar todos los campos!!");
+					return false;
 				}
-			}
+
+				datos=$('#frmClientes').serialize();
+
+				$.ajax({
+					type:"POST",
+					data:datos,
+					url:"../procesos/clientes/agregaCliente.php",
+					success:function(r){
+
+						if(r==1){
+							$('#frmClientes')[0].reset();
+							$('#tablaClientesLoad').load("clientes/tablaClientes.php");
+							alertify.success("Cliente agregado con exito :D");
+						}else{
+							alertify.error("No se pudo agregar cliente");
+						}
+					}
+				});
+			});
 		});
-	});
-	});
-</script>
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#btnAgregarClienteU').click(function(){
+				datos=$('#frmClientesU').serialize();
+
+				$.ajax({
+					type:"POST",
+					data:datos,
+					url:"../procesos/clientes/actualizaCliente.php",
+					success:function(r){
+
+						if(r==1){
+							$('#frmClientes')[0].reset();
+							$('#tablaClientesLoad').load("clientes/tablaClientes.php");
+							alertify.success("Cliente actualizado con exito :D");
+						}else{
+							alertify.error("No se pudo actualizar cliente");
+						}
+					}
+				});
+			})
+		})
+	</script>
 
 
 	<?php 
