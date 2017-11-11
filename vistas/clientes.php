@@ -57,12 +57,15 @@ if(isset($_SESSION['usuario'])){
 			}
 
 		datos=$('#frmClientes').serialize();
+		
 		$.ajax({
 			type:"POST",
 			data:datos,
 			url:"../procesos/clientes/agregaCliente.php",
 			success:function(r){
+				
 				if(r==1){
+					$('#frmClientes')[0].reset();
 					$('#tablaClientesLoad').load("clientes/tablaClientes.php");
 					alertify.success("Categoria agregada con exito :D");
 				}else{
