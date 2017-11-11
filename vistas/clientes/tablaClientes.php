@@ -40,7 +40,7 @@
 	 		<td><?php echo $ver[5]; ?></td>
 	 		<td><?php echo $ver[6]; ?></td>
 	 		<td>
-				<span class="btn btn-warning btn-xs">
+				<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#abremodalClientesUpdate" onclick="agregaDatosCliente('<?php echo $ver[0]; ?>')">
 					<span class="glyphicon glyphicon-pencil"></span>
 				</span>
 			</td>
