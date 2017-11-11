@@ -98,6 +98,26 @@ if(isset($_SESSION['usuario'])){
 				}
 			});
 		}
+
+		function eliminarCliente(idcliente){
+			alertify.confirm('¿Desea eliminar este cliente?', function(){ 
+				$.ajax({
+					type:"POST",
+					data:"idcliente=" + idcliente,
+					url:"../procesos/clientes/eliminarCliente.php",
+					success:function(r){
+						if(r==1){
+							$('#tablaClientesLoad').load("clientes/tablaClientes.php");
+							alertify.success("Eliminado con exito!!");
+						}else{
+							alertify.error("No se pudo eliminar :(");
+						}
+					}
+				});
+			}, function(){ 
+				alertify.error('Cancelo !')
+			});
+		}
 	</script>
 
 	<script type="text/javascript">
