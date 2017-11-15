@@ -45,15 +45,22 @@ $conexion=$c->conexion();
 			<input readonly="" type="text" class="form-control input-sm" id="precioV" name="precioV">
 			<p></p>
 			<span class="btn btn-primary" id="btnAgregaVenta">Agregar</span>
+			<span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
 		</form>
 	</div>
 	<div class="col-sm-3">
 		<div id="imgProducto"></div>
 	</div>
+	<div class="col-sm-4">
+		<div id="tablaVentasTempLoad"></div>
+	</div>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+
 		$('#productoVenta').change(function(){
 			$.ajax({
 				type:"POST",
@@ -70,8 +77,40 @@ $conexion=$c->conexion();
 				}
 			});
 		});
+
+		$('#btnAgregaVenta').click(function(){
+			vacios=validarFormVacio('frmVentasProductos');
+
+			if(vacios > 0){
+				alertify.alert("Debes llenar todos los campos!!");
+				return false;
+			}
+
+			datos=$('#frmVentasProductos').serialize();
+			$.ajax({
+				type:"POST",
+				data:datos,
+				url:"../procesos/ventas/agregaProductoTemp.php",
+				success:function(r){
+					$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+				}
+			});
+		});
+
+		$('#btnVaciarVentas').click(function(){
+
+		$.ajax({
+			url:"../procesos/ventas/vaciarTemp.php",
+			success:function(r){
+				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+			}
+		});
+	});
+
 	});
 </script>
+
+
 
 <script type="text/javascript">
 	$(document).ready(function(){
