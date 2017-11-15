@@ -8,7 +8,7 @@
  <h4><strong><div id="nombreclienteVenta"></div></strong></h4>
  <table class="table table-bordered table-hover table-condensed" style="text-align: center;">
  	<caption>
- 		<span class="btn btn-success"> Generar venta
+ 		<span class="btn btn-success" onclick="crearVenta()"> Generar venta
  			<span class="glyphicon glyphicon-usd"></span>
  		</span>
  	</caption>

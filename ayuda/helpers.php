@@ -88,4 +88,20 @@ https://bootsnipp.com/snippets/Kr5yV
 			return mysqli_fetch_row($result)[0];
 		}
 
+		public function creaFolio(){
+		$c= new conectar();
+		$conexion=$c->conexion();
+
+		$sql="SELECT id_venta from ventas group by id_venta desc";
+
+		$resul=mysqli_query($conexion,$sql);
+		$id=mysqli_fetch_row($resul)[0];
+
+		if($id=="" or $id==null or $id==0){
+			return 1;
+		}else{
+			return $id + 1;
+		}
+	}
+
  ?>
