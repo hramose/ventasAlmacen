@@ -110,7 +110,19 @@ $conexion=$c->conexion();
 	});
 </script>
 
-
+<script type="text/javascript">
+	function quitarP(index){
+		$.ajax({
+			type:"POST",
+			data:"ind=" + index,
+			url:"../procesos/ventas/quitarproducto.php",
+			success:function(r){
+				$('#tablaVentasTempLoad').load("ventas/tablaVentasTemp.php");
+				alertify.success("Se quito el producto :D");
+			}
+		});
+	}
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
