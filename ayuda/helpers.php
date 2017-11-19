@@ -105,7 +105,7 @@ https://bootsnipp.com/snippets/Kr5yV
 	}
 
 	///***************************************
-	public function nombreCliente($idCliente){
+	public function nombreClientegg($idCliente){
 		$c= new conectar();
 		$conexion=$c->conexion();
 
