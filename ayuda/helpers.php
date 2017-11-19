@@ -3,6 +3,15 @@
 //menu de cabecera 
 https://bootsnipp.com/snippets/Kr5yV
 
+
+<style type="text/css">
+		
+@page {
+            margin-top: 0.3em;
+            margin-left: 0.6em;
+        }
+	</style>
+
 <script type="text/javascript">
 
 	//script para evento click y ajax 
